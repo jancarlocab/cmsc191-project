@@ -14,7 +14,7 @@ print("=" * 60)
 # Do not change values anywhere else in the script.
 # =====================================================================
 NUM_HIDDEN    = 16        # 2/3 rule: (2/3 × 11) + 1 ≈ 8
-EPOCHS        = 10000
+EPOCHS        = 5000
 RANDOM_SEED   = 42
 
 # DBD hyperparameters — directly from professor's BASIC
