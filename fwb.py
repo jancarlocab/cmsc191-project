@@ -5,7 +5,6 @@ print("=" * 60)
 print(" PHASE 2A — BASE NETWORK")
 print(" Architecture : 11 → 8 → 1")
 print(" Optimizer    : Full-Batch DBD with Momentum")
-print(" Reference    : Pabico, backprop.bas / CMSC 191")
 print("=" * 60)
 
 # =====================================================================
@@ -17,7 +16,7 @@ NUM_HIDDEN    = 16        # 2/3 rule: (2/3 × 11) + 1 ≈ 8
 EPOCHS        = 5000
 RANDOM_SEED   = 42
 
-# DBD hyperparameters — directly from professor's BASIC
+# DBD hyperparameters
 KAPPA = 0.01   # Additive increase when gradient agrees with history
 PHI   = 0.50   # Multiplicative decrease when gradient flips
 THETA = 0.70   # Smoothing factor for gradient trace f
@@ -45,7 +44,6 @@ print(f"Epochs      : {EPOCHS}\n")
 
 # =====================================================================
 # SECTION 3: WEIGHT INITIALIZATION
-# Faithful to backprop.bas:
 #   Hidden weights  a(i,j) = 0.2*(RND - 0.5) → uniform(-0.1, 0.1)
 #   Output weights  b(j,k) = +1 if j even, -1 if j odd
 #   Learning rates  e      = kappa (initial per-weight learning rate)
@@ -58,7 +56,7 @@ np.random.seed(RANDOM_SEED)
 A     = np.random.uniform(-0.1, 0.1, (I + 1, J))
 
 # Output layer weights: (J hidden + 1 bias) × K outputs
-# Alternating ±1 per professor's initWeights subroutine
+# Alternating ±1 by hidden node index j, same for all output nodes k
 B     = np.array([[1.0 if j % 2 == 0 else -1.0
                    for _ in range(K)]
                   for j in range(J + 1)])   # shape (J+1, K)
@@ -103,8 +101,6 @@ def dbd_update(W, dW, f, e, c):
 
 # =====================================================================
 # SECTION 5: TRAINING LOOP
-#
-# Structure mirrors backprop.bas exactly:
 #   DO (epoch)
 #       FOR each example n        ← traverse all examples
 #           forward(n)            ← compute y and z
@@ -112,9 +108,6 @@ def dbd_update(W, dW, f, e, c):
 #       NEXT n
 #       changeWeights             ← one DBD update after full pass
 #   LOOP
-#
-# We use NumPy matrix ops which produce the same accumulated
-# derivatives as the per-example loops in BASIC, but faster.
 # =====================================================================
 learning_curve = []
 
