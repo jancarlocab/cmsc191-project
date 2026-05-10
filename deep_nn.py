@@ -1,6 +1,8 @@
 # This file implements a deep feedforward neural network with two hidden layers,
 # trained using the Delta-Bar-Delta with Momentum optimization algorithm.
 # CABRERA, JAN CARLO L.
+# REFERENCED PSEUDOCODES FROM: backprop.bas and pseudocode-ann.pl
+
 import pandas as pd
 import numpy as np
 
@@ -8,7 +10,6 @@ print("=" * 60)
 print(" PHASE 2B — DEEP NETWORK")
 print(" Architecture : 11 → 16 → 8 → 1")
 print(" Optimizer    : Full-Batch DBD with Momentum")
-print(" Reference    : Pabico, backprop.bas / CMSC 191")
 print("=" * 60)
 
 # =====================================================================

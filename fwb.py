@@ -1,3 +1,5 @@
+# SAMPLE IMPLEMENTATION OF SHALLOW NETWORK
+# FOR REFERENCE ONLY IN deep_nn.py
 import pandas as pd
 import numpy as np
 
