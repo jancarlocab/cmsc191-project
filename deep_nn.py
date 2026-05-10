@@ -13,7 +13,7 @@ print("=" * 60)
 # =====================================================================
 J1    = 16       # Hidden layer 1 — expand: more nodes than inputs,  lets the network find rich combinations of all 11 inputs
 J2    = 8        # Hidden layer 2 — compress: distill what layer 1 found
-EPOCHS      = 4000
+EPOCHS      = 10000
 RANDOM_SEED = 42
 
 # BACKPROPAGATION PARAMETERS
@@ -61,11 +61,13 @@ print(f"Epochs      : {EPOCHS}\n")
 # =====================================================================
 np.random.seed(RANDOM_SEED)
 
+# 
 A1 = np.random.uniform(-0.1, 0.1, (I  + 1, J1))
 A2 = np.random.uniform(-0.1, 0.1, (J1 + 1, J2))
-B  = np.array([[1.0 if j % 2 == 0 else -1.0
-                for _ in range(K)]
-               for j in range(J2 + 1)])
+
+B = np.array([[0.0 if j == 0 else (1.0 if j % 2 != 0 else -1.0) 
+               for _ in range(K)] 
+              for j in range(J2 + 1)])
 
 # DBD memory — Layer 1 hidden weights
 eA1 = np.full_like(A1, KAPPA)
